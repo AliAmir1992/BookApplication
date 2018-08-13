@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{modalTitle}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form novalidate [formGroup]="myForm">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" [ngClass]="{
+                'is-invalid': title.invalid && (title.dirty || title.touched),
+                'is-valid': title.valid && (title.dirty || title.touched)
+              }" formControlName="title" [(ngModel)]="book.Title">
+      <div class="form-control-feedback text-danger" *ngIf="title.errors && (title.dirty || title.touched)">
+        <p *ngIf="title.errors.required">Title is required</p>
+        <p *ngIf="title.errors.pattern">Title should only contain Alphanumeric characters</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea rows="3" cols="30" class="form-control" [ngClass]="{
+                'is-invalid': description.invalid && (description.dirty || description.touched),
+                'is-valid': description.valid && (description.dirty || description.touched)
+              }" formControlName="description" [(ngModel)]="book.Description">
+            </textarea>
+      <div class="form-control-feedback text-danger" *ngIf="description.errors && (description.dirty || description.touched)">
+          <p *ngIf="description.errors.required">Please enter a valid description.</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label>Page Count</label>
+        <input type="text" class="form-control" formControlName="pageCount" required [ngClass]="{
+            'is-invalid': pageCount.invalid && (pageCount.dirty || pageCount.touched),
+            'is-valid': pageCount.valid && (pageCount.dirty || pageCount.touched)}" [(ngModel)]="book.PageCount">
+        <div class="form-control-feedback text-danger" *ngIf="pageCount.errors && (pageCount.dirty || pageCount.touched)">
+            <p *ngIf="pageCount.errors.required">PageCount is required</p>
+            <p *ngIf="pageCount.errors.pattern">Enter a valid number</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Excerpt</label>
+        <textarea rows="3" cols="30" class="form-control" 
+          formControlName="excerpt" [(ngModel)]="book.Excerpt">
+        </textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Publish Date</label>
+      <input type="date" class="form-control"
+        formControlName="publishDate" [(ngModel)]="book.PublishDate" [value]="book.PublishDate | date:'yyyy-MM-dd'">
+    </div>
+
+    <div class="form-group">
+        <button type="button" [disabled]="!myForm.valid" class="btn btn-primary" (click)="saveContact()">Save</button>
+        <button type="button" class="btn btn-default pull-right" (click)="bsModalRef.hide()">Cancel</button>
+    </div>
+  </form>
+</div>
+<!-- <div class="modal-footer">
+    
+</div> -->

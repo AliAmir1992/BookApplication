@@ -1,0 +1,36 @@
+<div class="container">
+  <form novalidate [formGroup]="myForm">
+    <div class="form-group">
+      <div *ngIf="invalidMessage" class="alert alert-danger">
+        {{errorMessage}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Please Provide Login Details</label>
+    </div>
+    <div class="form-group">
+      <label>User ID</label>
+      <input type="text" class="form-control" [ngClass]="{
+              'is-invalid': idField.invalid && (idField.dirty || idField.touched),
+              'is-valid': idField.valid && (idField.dirty || idField.touched)
+            }" formControlName="idField" [(ngModel)]="id">
+      <div class="form-control-feedback text-danger" *ngIf="idField.errors && (idField.dirty || idField.touched)">
+        <p *ngIf="idField.errors.required">User Id is required</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" [ngClass]="{
+        'is-invalid': passwordField.invalid && (passwordField.dirty || passwordField.touched),
+        'is-valid': passwordField.valid && (passwordField.dirty || passwordField.touched)
+      }" formControlName="passwordField" [(ngModel)]="password">
+      <div class="form-control-feedback text-danger" *ngIf="passwordField.errors && (passwordField.dirty || passwordField.touched)">
+        <p *ngIf="passwordField.errors.required">Please enter a valid password.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" [disabled]="!myForm.valid" class="btn btn-primary" (click)="login()">Login</button>
+    </div>
+  </form>
+</div>
